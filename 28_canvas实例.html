@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="400" height="400"></canvas>
+</body>
+<script>
+    var flag = 0
+    var scale = 0
+    var flagScale = 0
+    var canvas = document.getElementById('test')
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d')
+    }
+    ctx.save()
+    ctx.beginPath()
+    ctx.translate(200, 200)
+    ctx.fillRect(-50, -50, 100, 100)
+    ctx.restore()
+
+    setInterval(function () {
+        flag++
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.save()
+        ctx.beginPath()
+        ctx.translate(200, 200)
+        ctx.rotate(flag * Math.PI / 180)
+        if (scale === 100) {
+            flagScale = -1
+        } else if (scale === 0) {
+            flagScale = 1
+        }
+        scale += flagScale
+        ctx.scale(scale / 50, scale / 50)
+        ctx.fillRect(-50, -50, 100, 100)
+        ctx.restore()
+
+    }, 50)
+
+</script>
+
+</html>

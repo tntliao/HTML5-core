@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 重置样式表 -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <!-- 主页样式表 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- 字体图标 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="player">
+        <video src="https://img.tukuppt.com/video_show/14038878/00/28/23/5f8fb08f8ef29.mp4"></video>
+        <!-- 控制栏 -->
+        <div class="control_bar">
+            <!-- 左边 -->
+            <div class="control_left">
+                <span id="start">
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                </span>
+                <span id="pause">
+                    <i class="fa fa-pause" aria-hidden="true"></i>
+                </span>
+            </div>
+            <!-- 进度条 -->
+            <div class="progress_bar">
+                <div class="progress_line"></div>
+                <div class="progress_block"></div>
+                <div class="played"></div>
+            </div>
+            <!-- 右边 -->
+            <div class="control_right">
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/drag.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

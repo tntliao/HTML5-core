@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #test {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('test');
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+    }
+    ctx.fillStyle = 'green';
+    ctx.fillRect(0, 0, 100, 100);
+    ctx.globalAlpha = .5;
+    /*
+         globalCompositeOperation 可选值
+            source-over 默认
+            source-atop 
+            source-in
+            source-out
+
+            destination-over
+            destination-atop
+            destination-in
+            destination-out
+     */
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'red'
+    ctx.fillRect(50, 50, 100, 100)
+</script>
+
+</html>

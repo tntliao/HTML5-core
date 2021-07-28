@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+</body>
+<script>
+    window.onload = function () {
+        var test = document.getElementById('test')
+        if (test.getContext) {
+            var ctx = test.getContext('2d')
+            ctx.fillStyle = 'green' //设置填充的颜色
+            ctx.strokeStyle = 'red' //设置笔触的颜色(路径、边框、轮廓)
+
+            //指定路径开始位置
+            ctx.moveTo(50, 50)
+            ctx.lineTo(50, 100)
+            ctx.lineTo(100, 100)
+            // ctx.closePath() //闭合路径
+            ctx.fill() // 自动合并和填充当前绘图（路径）
+            // ctx.stroke() //绘制已定义的路径
+
+            //beiginPath 重新绘制一条路径
+            ctx.beginPath()
+            ctx.moveTo(150,50)
+            ctx.lineTo(150,100)
+            ctx.lineTo(200,100)
+            ctx.closePath()
+            ctx.stroke()
+
+        }
+    }
+</script>
+
+</html>

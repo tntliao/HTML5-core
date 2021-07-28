@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('test')
+            canvas.width = document.documentElement.clientWidth
+            canvas.height = document.documentElement.clientHeight
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+            var img = new Image()
+            var flag = 0
+            var value = 0
+            setInterval(function () {
+                flag++
+                value += 10
+                //清楚画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                flag == 9 ? flag = 1 : null
+                img.src = './img/q_r' + flag + '.jpg'
+                img.onload = function () {
+                    draw()
+                }
+            }, 120)
+
+            function draw() {
+                ctx.drawImage(img, value, 0)
+            }
+        }
+    </script>
+</body>
+
+</html>

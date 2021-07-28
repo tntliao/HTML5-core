@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .test {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .test2 {
+            position: absolute;
+            top: 250px;
+            left: 360px;
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">
+    </div>
+    <div class="test2">
+    </div>
+    <script>
+        window.onload = function () {
+            var test = document.querySelector('.test');
+            var test2 = document.querySelector('.test2');
+
+            test.onmousedown = function (ev) {
+                if (test.setCapture) {
+                    test.setCapture();
+                }
+                ev = ev || window.event;
+
+                var a = test.offsetLeft;
+                var b = test.offsetTop;
+
+                var c = ev.clientX;
+                var d = ev.clientY;
+
+                document.onmousemove = function (ev) {
+                    ev = ev || window.event;
+
+                    var e = ev.clientX;
+                    var f = ev.clientY;
+
+                    var l = a + (e - c);
+                    var t = b + (f - d);
+
+                    if (l <= 20) {
+                        l = 0;
+                    } else if (l >= document.documentElement.clientWidth - test.offsetWidth - 20) {
+                        l = document.documentElement.clientWidth - test.offsetWidth;
+                    }
+                    if (t <= 20) {
+                        t = 0;
+                    } else if (t >= document.documentElement.clientHeight - test.offsetHeight - 20) {
+                        t = document.documentElement.clientHeight - test.offsetHeight;
+                    }
+
+                    test.style.left = l + 'px';
+                    test.style.top = t + 'px';
+
+                    var T1 = test.offsetTop;
+                    var R1 = test.offsetLeft + test.offsetWidth;
+                    var B1 = test.offsetTop + test.offsetHeight;
+                    var L1 = test.offsetLeft;
+
+                    var T2 = test2.offsetTop;
+                    var R2 = test2.offsetLeft + test2.offsetWidth;
+                    var B2 = test2.offsetTop + test2.offsetHeight;
+                    var L2 = test2.offsetLeft;
+
+                    if (R1 < L2 || B1 < T2 || L1 > R2 || T1 > B2) {
+                        test2.style.background = 'greenyellow';
+                    } else {
+                        test2.style.background = 'black';
+                    }
+
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                    if (test.releaseCapture) {
+                        test.releaseCapture();
+                    }
+                }
+
+                /* 禁止不了ie8以下浏览器事件的默认行为 */
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

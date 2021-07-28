@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="500" height="500"></canvas>
+    <script>
+        window.onload = function () {
+            //https://www.w3school.com.cn/tags/canvas_arc.asp
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+            ctx.beginPath()
+            //x轴,y轴,半径,开始角度,结束角度,顺时针或逆时针默认false顺时针
+            ctx.arc(100, 100, 50, 0 * Math.PI, 1 * Math.PI, false)
+            ctx.stroke()
+        }
+    </script>
+</body>
+
+</html>

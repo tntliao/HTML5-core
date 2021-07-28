@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="400" height="400"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+            //字体大小 字体样式(只有一种字体，乱写都会使用唯一那种字体)
+            ctx.font = '70px impact'
+            //设置当前文本基线
+            ctx.textBaseline = 'middle'
+            //获取宽度
+            var nana = ctx.measureText('廖家嘉').width
+            //文本,x,y
+            ctx.fillText('廖家嘉', (canvas.width - nana) / 2, (canvas.height - 70) / 2)   //在画布上绘制“被填充的”文本
+
+        }
+    </script>
+</body>
+
+</html>

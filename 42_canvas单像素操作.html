@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="400" height="300"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+            ctx.save()
+            ctx.fillStyle = 'greenyellow'
+            ctx.beginPath()
+            ctx.fillRect(50, 50, 100, 100)
+            ctx.restore()
+
+            var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height)
+            console.log(getPxInfo(imgdata, 50, 50))
+
+            function getPxInfo(imgdata, x, y) {
+                var color = []
+                var data = imgdata.data
+                var w = imgdata.width
+                var h = imgdata.height
+
+                //r
+                color[0] = data[(y * w + x) * 4]
+                //g
+                color[1] = data[(y * w + x) * 4 + 1]
+                //b
+                color[2] = data[(y * w + x) * 4 + 2]
+                //a
+                color[3] = data[(y * w + x) * 4 + 3]
+
+                return color
+            }
+
+            for (var i = 0; i < imgdata.width; i++) {
+                setPxInfo(imgdata, i, 49, [0, 0, 0, 255])
+            }
+            ctx.putImageData(imgdata, 0, 0)
+            function setPxInfo(imgdata, x, y, color) {
+                var data = imgdata.data
+                var w = imgdata.width
+                var h = imgdata.height
+
+                //r
+                data[(y * w + x) * 4] = color[0]
+                //g
+                data[(y * w + x) * 4 + 1] = color[1]
+                //b
+                data[(y * w + x) * 4 + 2] = color[2]
+                //a
+                data[(y * w + x) * 4 + 3] = color[3]
+            }
+        }
+    </script>
+</body>
+
+</html>

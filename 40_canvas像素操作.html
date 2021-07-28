@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="400" height="400"></canvas>
+</body>
+<script>
+    window.onload = function () {
+        var test = document.getElementById('test')
+        if (test.getContext) {
+            var ctx = test.getContext('2d')
+        }
+        ctx.fillStyle = 'green'
+        ctx.fillRect(0, 0, 100, 100)
+
+        /*
+            imageDate
+                width:横向上像素的个数
+                height:纵向上像素的个数
+                date:数组
+                    每一个像素的rgba信息
+         */
+        //复制画布上指定矩形的像素数据
+        var imageData = ctx.getImageData(0, 0, 100, 100)
+        console.log(imageData);
+
+        for (var i = 0; i < imageData.data.length; i++) {
+            imageData.data[4 * i + 3] = 100
+        }
+        // 将图像数据放回画布
+        ctx.putImageData(imageData, 0, 0)
+    }
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: blanchedalmond;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="500" height="500"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('test')
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d')
+    }
+    /*
+        先旋转在绘图 
+     */
+    ctx.translate(100, 100)
+    ctx.rotate(45 * Math.PI / 180)
+    ctx.beginPath()
+    /*
+        会往轴的反向延伸 
+     */
+    ctx.fillRect(100, 100, 100, 100)
+</script>
+
+</html>

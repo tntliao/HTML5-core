@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .test {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    aaaa
+    <div class="test">
+
+    </div>
+    <script>
+        window.onload = function () {
+            var test = document.querySelector('.test');
+
+            test.onmousedown = function (ev) {
+                ev = ev || window.event;
+
+                var a = test.offsetLeft;
+                var b = test.offsetTop;
+
+                var c = ev.clientX;
+                var d = ev.clientY;
+
+                document.onmousemove = function (ev) {
+                    ev = ev || window.event;
+
+                    var e = ev.clientX;
+                    var f = ev.clientY;
+                    test.style.left = a + (e - c) + 'px';
+                    test.style.top = b + (f - d) + 'px';
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                }
+
+                /* 禁止不了ie8以下浏览器事件的默认行为 */
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

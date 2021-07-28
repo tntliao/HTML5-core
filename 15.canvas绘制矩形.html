@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            margin: 100px 200px;
+            width: 600px;
+            height: 300px;
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+    <script>
+        var test = document.getElementById('test')
+        var ctx = test.getContext('2d')
+        //设置填充绘画的颜色
+        ctx.fillStyle = 'greenyellow'
+        //设置轮廓的样式
+        ctx.strokeStyle = 'yellowgreen'
+        //设置轮廓粗细
+        ctx.lineWidth = 10
+
+        //默认。创建尖角
+        ctx.lineJoin = 'miter'
+        //创建边角的类型为斜角
+        ctx.lineJoin = 'bevel'
+        //创建圆角
+        ctx.lineJoin = 'round'
+
+        //绘制“被填充”的矩形
+        // ctx.fillRect(0, 0, 50, 50)
+        //绘制矩形（无填充）
+        // ctx.strokeRect(50.5, 50.5, 50, 50)
+        ctx.strokeRect(50, 50, 50, 50)
+        //在给定的矩形内清除指定的像素
+        ctx.clearRect(50, 50, 50, 50)
+
+    </script>
+</body>
+
+</html>

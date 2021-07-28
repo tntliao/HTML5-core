@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <li data-index="1"></li>
+    <li data-index-jiajia="2"></li>
+    <li data-index="3"></li>
+</body>
+<script>
+    var lis = document.getElementsByTagName('li')
+    //读取数据
+    console.log(lis[0].dataset.index); 
+    console.log(lis[1].dataset.indexJiajia);
+    //写入数据
+    lis[2].dataset.index = 'nihao'
+</script>
+
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrap">
+        <video
+            src="D:\迅雷下载\[哔嘀影视-www.bdys.me]彗星来的那一夜.Coherence.2013.BD1080P.X264.AAC.English.CHS-ENG\彗星来的那一夜.Coherence.2013.BD1080P.X264.AAC.English.CHS-ENG.BDYS.mp4"></video>
+        <div class="control">
+            <div class="btns">
+                <span class="start"></span>
+                <span class="stop"></span>
+            </div>
+            <div class="progress">
+                <div class="wrap">
+                    <div class="inner"></div>
+                </div>
+                <div class="deeppink"></div>
+            </div>
+            <div class="others">
+                <div class="time">
+                    <span class="now">00:00:00</span>/
+                    <span class="all">00:00:00</span>
+                </div>
+                <div class="sound">
+                    <div class="switch">
+                        <span></span>
+                    </div>
+                    <div class="progress">
+                        <div class="wrap">
+                            <div class="inner"></div>
+                        </div>
+                        <div class="deeppink"></div>
+                    </div>
+                </div>
+                <div class="full_screen">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/drag.js"></script>
+    <script>
+        window.onload = function () {
+            var video = document.querySelector('#wrap > video');
+            var control = document.querySelector("#wrap > .control");
+            var progress = document.querySelector("#wrap > .control > .progress ")
+            var inner = document.querySelector("#wrap > .control > .progress > .wrap > .inner ");
+            var deeppink = document.querySelector("#wrap > .control > .progress > .deeppink ");
+            var start = document.querySelector('#wrap .control .btns > .start');
+            var stop = document.querySelector('#wrap .control .btns > .stop');
+            var allSpan = document.querySelectorAll('#wrap .control .others .time > span');
+            var inner2 = document.querySelector("#wrap > .control >.others .progress > .wrap > .inner ");
+            var deeppink2 = document.querySelector("#wrap > .control >.others .progress > .deeppink ");
+            var progress2 = document.querySelector('#wrap .control .others .sound .progress');
+            var volume = document.querySelector('#wrap .control .others .sound .switch');
+            var full_screen = document.querySelector('#wrap .control .others .full_screen');
+
+            video.width = document.documentElement.clientWidth;
+            video.height = document.documentElement.clientHeight - control.offsetHeight;
+
+            window.onresize = function () {
+                if (document.documentElement.clientWidth >= 600) {
+                    video.width = document.documentElement.clientWidth;
+                    video.height = document.documentElement.clientHeight - control.offsetHeight;
+                }
+            }
+
+            $.drag(inner, callBack);
+            $.drag(inner2, callBack2);
+            var callBack = {
+                move: function () {
+                    start.classList.add('active');
+                    deeppink.style.width = this.offsetLeft + 'px';
+                    var scale = this.offsetLeft / (progress.clientWidth - inner.offsetWidth);
+                    video.currentTime = video.duration * scale;
+                    allSpan[0].innerHTML = changeTime(video.currentTime);
+                }
+            }
+            var callBack2 = {
+                move: function () {
+                    deeppink2.style.width = this.offsetLeft + 'px';
+                    var scale = this.offsetLeft / (progress2.clientWidth - inner2.offsetWidth);
+                    flag = scale;
+                    video.volume = scale;
+                    if (video.volume == 0) {
+                        video.muted = true;
+                        volume.children[0].classList.add('active');
+                    } else {
+                        volume.children[0].classList.remove('active');
+                        video.muted = false;
+                    }
+                }
+            }
+
+            /*
+                timer 定时器
+                flag 声音 
+                isFullScreen 全屏标志
+             */
+            var timer, flag, isFullScreen = false;
+            player();
+            function player() {
+                //音量控制
+                inner2.style.left = deeppink2.style.width = progress2.offsetWidth - inner2.offsetWidth + 'px';
+                //时间显示
+                setTimeout(function () {
+                    allSpan[1].innerHTML = changeTime(video.duration);
+                }, 100)
+
+                start.addEventListener('click', function () {
+                    if (video.paused) {
+                        video.play();
+                        this.classList.add('active');
+                        timer = setInterval(move, 100);
+                    } else {
+                        video.pause();
+                        this.classList.remove('active');
+                        clearInterval(timer);
+                    }
+                })
+                stop.addEventListener('click', function () {
+                    video.currentTime = 0;
+                    video.pause();
+                    start.classList.remove('active');
+                })
+                volume.addEventListener('click', function () {
+                    if (video.muted) {
+                        video.muted = false;
+                        video.volume = 1;
+                        inner2.style.left = deeppink2.style.width = (progress2.offsetWidth - inner2.offsetWidth) * flag + 'px';
+                        volume.children[0].classList.remove('active');
+                    } else {
+                        video.muted = true;
+                        video.volume = 0;
+                        inner2.style.left = deeppink2.style.width = 0 + 'px';
+                        volume.children[0].classList.add('active');
+                    }
+                })
+                full_screen.addEventListener('click', function () {
+                    if (isFullScreen) {
+                        // 全屏 ---> 不是全屏 --> remove
+                        full_screen.children[0].classList.add('active');
+                        isFullScreen = false
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                        else if (document.mozCancelFullScreen) {
+                            document.mozCancelFullScreen();
+                        }
+                        else if (document.webkitCancelFullScreen) {
+                            document.webkitCancelFullScreen();
+                        }
+                        else if (document.msExitFullscreen) {
+                            document.msExitFullscreen();
+                        }
+                    } else {
+                        full_screen.children[0].classList.remove('active');
+                        isFullScreen = true
+                        var docElm = document.documentElement;
+                        //W3C  
+                        if (docElm.requestFullscreen) {
+                            docElm.requestFullscreen();
+                        }
+                        //FireFox  
+                        else if (docElm.mozRequestFullScreen) {
+                            docElm.mozRequestFullScreen();
+                        }
+                        //Chrome等  
+                        else if (docElm.webkitRequestFullScreen) {
+                            docElm.webkitRequestFullScreen();
+                        }
+                        //IE11
+                        else if (docElm.msRequestFullscreen) {
+                            docElm.msRequestFullscreen();
+                        }
+                    }
+                })
+
+                progress.addEventListener('click', function (ev) {
+                    ev = ev || window.event;
+                    video.play();
+                    start.classList.add('active');
+                    timer = setInterval(move, 100);
+                    /*
+                        视频当前时间 = 视频总时间 * (点击的x轴位置 - progress的左边偏移量) / 进度条最大值(progress.clientWidth - inner.offsetWidth)   
+                            
+                                      视频总时间 = 100 * (x轴 = 70 - left = 10)  / 397
+                     */
+                    video.currentTime = video.duration * ((ev.clientX - this.offsetLeft) / (progress.clientWidth - inner.offsetWidth))
+                })
+
+                /* 函数 */
+                function changeTime(time) {
+                    time = parseInt(time);
+                    var h = toZero(Math.floor(time / 3600));
+                    var m = toZero(Math.floor(time % 3600 / 60));
+                    var s = toZero(Math.round(time % 3600 % 60));
+                    return h + ':' + m + ':' + s;
+                }
+                function toZero(num) {
+                    var val = "";
+                    if (num < 10) {
+                        val = "0" + num;
+                    } else {
+                        val = val + num;
+                    }
+                    return val;
+                }
+                function move() {
+                    /*
+                        视频当前位置 / 视频当前长度 = 
+                        进度条的宽度 / inner的宽度 = inner最大left值 deeppink最大宽度
+                            
+                            比如当前是  1
+                            视频长度是  100
+                            进度条宽度  400
+                            inner是    3
+    
+                            (1/100) * (400-3)
+                          = 0.01 * 397
+                          = 3.97
+    
+                           比如当前是  2
+                            视频长度是  100
+                            进度条宽度  400
+                            inner是    3
+    
+                            (2/100) * (400-3)
+                          = 0.02 * 397
+                          = 7.94
+                     */
+
+                    inner.style.left = deeppink.style.width = (video.currentTime / video.duration) * (progress.clientWidth - inner.offsetWidth) + "px";
+                    allSpan[0].innerHTML = changeTime(video.currentTime);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

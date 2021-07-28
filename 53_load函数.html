@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video controls width="300">
+        <source src="./resource/video/OUTPUT.mp4">
+    </video>
+    <audio controls>
+        <source src="./resource/audio/OUTPUT.mp3">
+    </audio>
+    <script>
+        var video = document.getElementsByTagName('video')[0];
+        var audio = document.getElementsByTagName('audio')[0];
+        var source = document.getElementsByTagName('source');
+        /*
+            load() 媒体重新加载
+         */
+        source[0].src = './resource/video/OUTPUT.ogv';
+        source[1].src = "./resource/audio/OUTPUT.ogg";
+        /*
+            用 source 标签更换的src路径需要重新 load 重新加载 
+         */
+        video.load();
+        audio.load();
+    </script>
+</body>
+
+</html>

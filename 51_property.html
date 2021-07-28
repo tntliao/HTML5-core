@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=F, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video src="./resource/video/OUTPUT.mp4" controls width="300"></video>
+    <audio src="./resource/audio/OUTPUT.mp3" controls></audio>
+    <script>
+        window.onload = function () {
+            var video = document.getElementsByTagName('video')[0];
+            var audio = document.getElementsByTagName('audio')[0];
+
+            /* 
+                duration 媒体总时间(只读)
+             */
+            console.log(video.duration);
+            console.log(audio.duration);
+
+            /*
+                currentTime 开始播放到现在所用的时间(可读写) 
+             */
+            var nana = 0;
+            var timer = setInterval(function () {
+                nana++;
+                if (nana == 3) {
+                    clearInterval(timer);
+                }
+                console.log(video.currentTime);
+            }, 1000)
+
+            /*
+                muted 是否静音(可读写,相比于volume优先级要高) 
+                    false 没静音
+                    true 静音
+             */
+            // video.muted = true;
+            console.log(video.muted)
+
+            /*
+                volume 0.0-1.0的音量相对值(可读写) 
+             */
+            // audio.volume = 0;
+            console.log(audio.volume)
+
+            // video.volume = .5;
+            // video.muted = true;  //优先级高
+
+            /*
+                paused 媒体是否暂停(只读) 
+             */
+
+            /*
+               ended 媒体是否播放完毕(只读) 
+             */
+
+            /*
+                error 媒体发生错误的时候，返回错误代码 (只读) 
+             */
+
+            /*
+                currentSrc  以字符串的形式返回媒体地址(只读) 
+             */
+
+        }
+    </script>
+</body>
+
+</html>

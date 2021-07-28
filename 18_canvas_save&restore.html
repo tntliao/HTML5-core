@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+</body>
+<script>
+    window.onload = function () {
+        var test = document.getElementById('test')
+        if (test.getContext) {
+            var ctx = test.getContext('2d')
+            ctx.save() //黑色
+            //保存当前状态
+            ctx.fillStyle = 'red'
+            ctx.save()
+            ctx.fillStyle = 'green'
+            ctx.save()
+            ctx.fillStyle = 'yellow'
+            ctx.save()
+            ctx.fillStyle = 'blue'
+            ctx.save()
+
+            //返回之前保存过的路径状态和属性
+            ctx.restore() //blue
+            ctx.restore() //yellow
+            ctx.restore() //green
+            //x轴50,y轴50,100*100
+            ctx.fillRect(50, 50, 100, 100)
+        }
+    }
+</script>
+
+</html>

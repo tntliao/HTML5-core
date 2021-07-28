@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="400" height="400"></canvas>
+</body>
+<script>
+    window.onload = function () {
+        var test = document.getElementById('test')
+        if (test.getContext) {
+            var ctx = test.getContext('2d')
+        }
+        ctx.fillStyle = 'green'
+        ctx.fillRect(0, 0, 100, 100)
+
+        /*
+            imageDate
+                width:横向上像素的个数
+                height:纵向上像素的个数
+                date:数组
+                    每一个像素的rgba信息
+         */
+        //默认创建rgba(0,0,0,0)
+        var imgData = ctx.createImageData(100, 100)
+        for (var i = 0; i < imgData.data.length; i++) {
+            imgData.data[4 * i + 3] = 255
+        }
+        //数据,x,y
+        ctx.putImageData(imgData, 100, 100)
+    }
+</script>
+
+</html>

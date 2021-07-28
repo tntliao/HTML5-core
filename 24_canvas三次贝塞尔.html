@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="500" height="500"></canvas>
+    <script>
+        window.onload = function () {
+            //https://www.w3school.com.cn/tags/canvas_quadraticcurveto.asp
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+
+            ctx.beginPath()
+            //创建开始位置
+            ctx.moveTo(0, 0)
+            ctx.bezierCurveTo(300, 100, 100, 300, 500, 100)
+            ctx.stroke()
+        }
+    </script>
+</body>
+
+</html>

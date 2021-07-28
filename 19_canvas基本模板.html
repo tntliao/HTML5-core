@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+</body>
+<script>
+    window.onload = function () {
+        /*
+             1.路径容器
+                每次调用路径api时，都会往路径容器里还登记
+                调用beginPath()时，清空整个路径容器
+             2.样式容器
+                每次调用样式api时，都会往样式容器里做登记
+                调用save时候，将样式容器里的状态压入样式栈
+                调用restore时候，将样式容器里的状态压入样式栈
+             3.样式栈
+         */
+        var test = document.getElementById('test')
+        if (test.getContext) {
+            var ctx = test.getContext('2d')
+
+            //关于样式的设置
+            //save restore成对出现
+            ctx.save()
+            //关于路径
+            ctx.beginPath()
+            ctx.restore()
+
+            //关于样式的设置
+            ctx.sava()
+            //关于路径
+            ctx.beginPath()
+
+            ctx.fill()
+            ctx.restore()
+        }
+    }
+</script>
+
+</html>

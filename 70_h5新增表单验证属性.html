@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" required>
+        <input type="submit">
+    </form>
+    <script>
+        window.onload = function () {
+            /*
+                validity对象，通过下面的valid可以查看验证是否通过，如果八种验证都通过返回true，一种验证失败返回false
+                
+                valueMissing  	 :  输入值为空时返回true
+                typeMismatch 	 :  控件值与预期类型不匹配返回true
+                patternMismatch  :  输入值不满足pattern正则返回true
+                tooLong  		 :  超过maxLength最大限制返回true
+                rangeUnderflow   :  验证的range最小值返回true
+                rangeOverflow    :  验证的range最大值返回true
+                stepMismatch     :  验证range 的当前值 是否符合min、max及step的规则返回true 
+             */
+            var input = document.querySelector('input');
+            input.addEventListener('invalid', function () {
+                console.log(this.validity);
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        placeholder 输入框提示信息不可更改
+        autofocus 指定表单获取输入焦点
+        required 此项必填，不能为空
+        pattern 正则验证格式:pattern="\d{1,5}
+        formaction 在submit里定义提交地址
+        list和datalist 为输入框构造一个选择列表
+		    list值为datalist标签的id
+     -->
+    <form action="http://www.baidu.com">
+        <!-- <input type="text" placeholder='此文本不可更改'> -->
+        <!-- <input type="text" autofocus> -->
+        <!-- <input type="text" required> -->
+        <input type="text" pattern="\d{1,5}">
+        <!-- <input type="submit" formaction="http://www.360.com"> -->
+        <input type="submit" value="提交">
+    </form>
+</body>
+
+</html>

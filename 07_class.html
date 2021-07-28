@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test" class="ljj1 ljj2 ljj3"></div>
+</body>
+<script>
+    var test = document.getElementById('test');
+    console.log(test.className);
+    test.classList.add('nihao');    //add 添加 nihao
+    test.classList.remove('ljj1');  //remove 删除 ljj1
+    test.classList.toggle('nihao')  //toggle 有就删除 没有添加
+    console.log(test.classList);
+</script>
+
+</html>

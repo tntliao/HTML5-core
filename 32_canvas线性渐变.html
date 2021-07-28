@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="600" height="500"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d')
+            }
+            var img = new Image()
+            img.src = 'https://www.w3school.com.cn/i/eg_tulip.jpg'
+            img.onload = function () {
+                draw()
+            }
+            function draw() {
+                var gradient = ctx.createLinearGradient(0, 100, 200, 100)
+                gradient.addColorStop('0', "red")
+                gradient.addColorStop('.5', "pink")
+                // gradient.addColorStop('.666', "yellow")
+                gradient.addColorStop('1', "green")
+                ctx.fillStyle = gradient
+                ctx.fillRect(0, 0, 200, 200)
+            }
+        }
+    </script>
+</body>
+
+</html>

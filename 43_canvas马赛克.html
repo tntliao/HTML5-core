@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #test {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('test')
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.src = './img/tom.jpg';
+                img.onload = function () {
+                    canvas.width = img.width * 2;
+                    canvas.height = img.height;
+                    draw();
+                }
+            }
+            function draw() {
+                //绘制img,x,y
+                ctx.drawImage(img, 0, 0);
+                var w = img.width;
+                var h = img.height;
+                //获取当前区域信息
+                var oldImgdata = ctx.getImageData(0, 0, w, h);
+                //创建一个空白的 ImageData 对象
+                var newImgdata = ctx.createImageData(w, h);
+                //马赛克矩形大小
+                var size = 5;
+
+                for (var i = 0; i < w / size; i++) {
+                    for (var j = 0; j < h / size; j++) {
+                        var color = getPxInfo(oldImgdata, i * size + Math.floor(Math.random() * size), j * size + Math.floor(Math.random() * size));
+                        for (var a = 0; a < size; a++) {
+                            for (var b = 0; b < size; b++) {
+                                setPxInfo(newImgdata, i * size + a, j * size + b, color)
+                            }
+                        }
+                    }
+                }
+
+                ctx.putImageData(newImgdata, w, 0)
+            }
+
+            function getPxInfo(imgdata, x, y) {
+                var color = [];
+                var data = imgdata.data;
+                var w = imgdata.width;
+                var h = imgdata.height;
+
+                color[0] = data[(y * w + x) * 4];
+                color[1] = data[(y * w + x) * 4 + 1];
+                color[2] = data[(y * w + x) * 4 + 2];
+                color[3] = data[(y * w + x) * 4 + 3];
+                return color;
+            }
+
+            function setPxInfo(imgdata, x, y, color) {
+                var data = imgdata.data;
+                var w = imgdata.width;
+                var h = imgdata.height;
+                data[(y * w + x) * 4] = color[0];
+                data[(y * w + x) * 4 + 1] = color[1];
+                data[(y * w + x) * 4 + 2] = color[2];
+                data[(y * w + x) * 4 + 3] = color[3];
+            }
+        }
+    </script>
+</body>
+
+</html>

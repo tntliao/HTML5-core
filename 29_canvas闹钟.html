@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            background-color: gray;
+        }
+
+        #clock {
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="clock" width="400" height="400"></canvas>
+    <script>
+        window.onload = function () {
+            var clock = document.getElementById('clock')
+            if (clock.getContext) {
+                var ctx = clock.getContext('2d')
+            }
+            move()
+            setInterval(function () {
+                ctx.clearRect(0, 0, clock.width, clock.height)
+                move()
+            }, 1000)
+
+
+
+            function move() {
+                ctx.save()
+                /* 设置线条粗细 */
+                ctx.lineWidth = 8
+                /* 设置原点 */
+                ctx.translate(200, 200)
+                /* 设置开始结束断点为圆形 */
+                ctx.lineCap = "round"
+                /* 设置线条颜色 */
+                ctx.strokeStyle = "black"
+
+                /* 外圈 */
+                ctx.save()
+                ctx.strokeStyle="#325FA2";
+                ctx.lineWidth = 14;
+                ctx.beginPath()
+                ctx.arc(0, 0, 140, 0, 360 * Math.PI / 180)
+                ctx.stroke()
+                ctx.restore()
+
+                //
+                ctx.lineWidth = 10
+                ctx.save()
+                ctx.beginPath()
+                for (var i = 0; i <= 12; i++) {
+                    ctx.moveTo(0, -100)
+                    ctx.lineTo(0, -120)
+                    ctx.stroke()
+                    /* 角度累加 */
+                    ctx.rotate(30 * Math.PI / 180)
+                }
+                ctx.restore()
+
+                //
+                ctx.lineWidth = 6
+                ctx.save()
+                ctx.beginPath()
+                for (var i = 0; i <= 60; i++) {
+                    if (i % 5 != 0) {
+                        ctx.moveTo(0, -118)
+                        ctx.lineTo(0, -120)
+                        ctx.stroke()
+                    }
+                    ctx.rotate(6 * Math.PI / 180)
+
+                }
+                ctx.restore()
+
+                var date = new Date()
+                var s = date.getSeconds()
+                var m = date.getMinutes()
+                var h = date.getHours()
+                console.log(s, m, h);
+
+                // 时针
+                ctx.lineWidth = 10
+                ctx.save()
+                ctx.beginPath()
+                ctx.rotate(h * 30 * Math.PI / 180)
+                ctx.moveTo(0, 10)
+                ctx.lineTo(0, -60)
+                ctx.stroke()
+                ctx.restore()
+
+                // 分针
+                ctx.lineWidth = 8
+                ctx.save()
+                ctx.beginPath()
+                ctx.rotate(m * 6 * Math.PI / 180)
+                ctx.moveTo(0, 10)
+                ctx.lineTo(0, -70)
+                ctx.stroke()
+                ctx.restore()
+
+                //秒针
+                ctx.lineWidth = 6
+                ctx.save()
+                ctx.strokeStyle = "red"
+                ctx.fillStyle = 'red'
+                ctx.beginPath()
+                ctx.rotate(s * 6 * Math.PI / 180)
+                ctx.moveTo(0, 10)
+                ctx.lineTo(0, -80)
+                ctx.stroke()
+                //圆盘
+                ctx.beginPath()
+                ctx.arc(0, 0, 10, 0, 360 * Math.PI / 180)
+                ctx.fill()
+                //
+                ctx.beginPath()
+                ctx.arc(0, -90, 10, 0, 360 * Math.PI / 180)
+                ctx.stroke()
+                //
+                ctx.restore()
+                ctx.restore()
+            }
+        }
+    </script>
+</body>
+
+</html>

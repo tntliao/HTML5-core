@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test {
+            background-color: pink;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        canvas 宽高在行内指定
+        背景默认是根据body决定
+     -->
+    <canvas id="test">
+        <!-- 
+            如果浏览器支持canvas,canvas标签里面写的东西不会被显示出来
+            如果不支持，就会把里面的东西显示出来
+         -->
+        <span>您的浏览器不支持此功能,请下载最新浏览器</span>
+    </canvas>
+    <script>
+        window.onload = function () {
+            var test = document.getElementById('test');
+            if (test.getContext) {
+                //获取画笔
+                var ctx = test.getContext('2d')
+            }
+        }
+    </script>
+</body>
+
+</html>
